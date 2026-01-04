@@ -51,6 +51,45 @@ body{
   text-decoration:none;
 }
 </style>
+  <style>
+/* ===== FIXED PLAYER SIZE SYSTEM ===== */
+.player-wrapper{
+  position: relative;
+  width: 100%;
+  max-width: 980px;
+  margin: auto;
+  background: #000;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid rgba(13,110,253,.35);
+}
+
+/* fallback for old browsers */
+.player-wrapper::before{
+  content:"";
+  display:block;
+  padding-top:56.25%;
+}
+
+.player-box{
+  position:absolute;
+  inset:0;
+}
+
+.player-box video{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:#000;
+}
+
+@media (max-width:600px){
+  .player-wrapper{
+    border-radius:8px;
+  }
+}
+  </style>
 </head>
 
 <body oncontextmenu="return false">
@@ -59,9 +98,11 @@ body{
   CriccVerse ✘ Sojeeb 
 </div>
 
-<div class="player-box">
-  <video id="player" controls playsinline></video>
-</div>
+  <div class="player-wrapper">
+  <div class="player-box">
+    <video id="player" playsinline controls></video>
+  </div>
+  </div>
 
 <div class="tg-box">
   <a href="https://t.me/CriccSojeeb" target="_blank">
@@ -244,8 +285,35 @@ new Plyr(video,{
 
 })();
 </script>
+  <script>
+const video = document.getElementById("player");
+
+function playStream(url){
+  if(!url){
+    document.querySelector(".player-box").innerHTML = `
+      <div style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        height:100%;
+        color:#fff;
+        font-size:16px;
+        background:#000;
+      ">
+        ⚠️ Stream not available
+      </div>
+    `;
+    return;
+  }
+
+  video.src = url;
+  video.load();
+  video.play().catch(()=>{});
+}
+  </script>
 </body>
 </html>
+
 
 
 
