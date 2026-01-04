@@ -60,7 +60,7 @@ body{
 </div>
 
 <div class="player-box">
-  <video id="player" controls playsinline></video>
+  <video id="player" controls muted playsinline preload="auto"></video>
 </div>
 
 <div class="tg-box">
@@ -173,9 +173,44 @@ new Plyr(video,{
   }
 });
 </script>
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const video = document.getElementById("player");
 
+  function playVideo() {
+    if (!video) return;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {});
+    }
+  }
+
+  // Try autoplay instantly
+  playVideo();
+
+  // Popup logic
+  setTimeout(() => {
+    let popupShown = false;
+    try {
+      popupShown = confirm("Join @CriccSojeeb for more live links?");
+    } catch (e) {
+      popupShown = false;
+    }
+
+    // Popup থাকুক বা না থাকুক → play
+    playVideo();
+
+    if (popupShown) {
+      window.open("https://t.me/CriccSojeeb", "_blank");
+    }
+  }, 800);
+});
+</script>
+  
 </body>
 </html>
+
 
 
 
