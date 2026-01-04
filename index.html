@@ -170,9 +170,83 @@ new Plyr(video,{
 });
 
 </script>
+<script>
+/* ===============================
+   DEVTOOLS / INSPECT BLOCK SYSTEM
+   =============================== */
 
+(function () {
+
+  const kickOut = () => {
+    try {
+      const v = document.querySelector("video");
+      if (v) {
+        v.pause();
+        v.src = "";
+      }
+    } catch (e) {}
+
+    document.body.innerHTML = `
+      <div style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        height:100vh;
+        background:#050b18;
+        color:#fff;
+        text-align:center;
+        font-family:Arial;
+      ">
+        <div>
+          <h2>⚠️ Access Blocked</h2>
+          <p>Developer Tools is not allowed on this site.</p>
+        </div>
+      </div>
+    `;
+
+    setTimeout(() => {
+      location.href = "about:blank";
+    }, 1500);
+  };
+
+  /* Disable right click */
+  document.addEventListener("contextmenu", e => e.preventDefault());
+
+  /* Block key shortcuts */
+  document.addEventListener("keydown", function (e) {
+    if (
+      e.keyCode === 123 || // F12
+      (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+      (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+      (e.ctrlKey && e.shiftKey && e.keyCode === 67) || // Ctrl+Shift+C
+      (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+    ) {
+      e.preventDefault();
+      kickOut();
+    }
+  });
+
+  /* Detect DevTools open by size */
+  let devtoolsOpen = false;
+  const threshold = 160;
+
+  setInterval(() => {
+    const widthDiff = window.outerWidth - window.innerWidth;
+    const heightDiff = window.outerHeight - window.innerHeight;
+
+    if (widthDiff > threshold || heightDiff > threshold) {
+      if (!devtoolsOpen) {
+        devtoolsOpen = true;
+        kickOut();
+      }
+    }
+  }, 500);
+
+})();
+</script>
 </body>
 </html>
+
 
 
 
