@@ -56,13 +56,7 @@ body{
 <body oncontextmenu="return false">
 
 <div class="header">
-  CriccSojeeb Live
-  <div class="sub">Live Sports Streaming</div>
-</div>
-
-<div class="info">
- 🔴 LIVE NOW <br>
- 👁️ Watching: <span class="counter" id="users">0</span>
+  CriccVerse ✘ Sojeeb
 </div>
 
 <div class="player-box">
@@ -174,16 +168,10 @@ new Plyr(video,{
     forced:true
   }
 });
-
-// 👁️ Fake User Counter
-let users = Math.floor(Math.random()*600)+700;
-document.getElementById("users").innerText = users;
-setInterval(()=>{
-  users += Math.floor(Math.random()*5)-2;
-  if(users < 500) users = 500;
-  document.getElementById("users").innerText = users;
-},3000);
 </script>
 
 </body>
 </html>
+
+
+
