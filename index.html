@@ -60,8 +60,9 @@ body{
 </div>
 
 <div class="player-box">
-  <video id="player" controls muted playsinline preload="auto"></video>
+  <video id="player" playsinline controls></video>
 </div>
+
 
 <div class="tg-box">
   <a href="https://t.me/CriccSojeeb" target="_blank">
@@ -77,24 +78,16 @@ document.onkeydown = function(e){
 };
 
 // 🔔 Telegram Popup – 1 hour cooldown
-(function () {
-  const TG_KEY = "tg_popup_time";
-  const ONE_HOUR = 60 * 60 * 1000;
-
-  const lastShown = localStorage.getItem(TG_KEY);
-  const now = Date.now();
-
-  if (!lastShown || now - lastShown > ONE_HOUR) {
-    setTimeout(() => {
-      const join = confirm("Join @CriccSojeeb for more live matches?");
-      localStorage.setItem(TG_KEY, now);
-
-      if (join) {
-        window.location.href = "https://t.me/CriccSojeeb";
-      }
-    }, 1500);
+if(!localStorage.getItem("tgjoin")){
+ setTimeout(()=>{
+  if(confirm("Join @CriccSojeeb for more live matches?")){
+    location.href="https://t.me/CriccSojeeb";
+  }else{
+    localStorage.setItem("tgjoin","yes");
   }
-})();
+ },1500);
+}
+
 
 /* ========== ADMIN PANEL (CHANNEL LIST) ========== */
 const CHANNELS = {
@@ -187,42 +180,9 @@ new Plyr(video,{
 });
 </script>
   
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const video = document.getElementById("player");
-
-  function playVideo() {
-    if (!video) return;
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {});
-    }
-  }
-
-  // Try autoplay instantly
-  playVideo();
-
-  // Popup logic
-  setTimeout(() => {
-    let popupShown = false;
-    try {
-      popupShown = confirm("Join @CriccSojeeb for more live links?");
-    } catch (e) {
-      popupShown = false;
-    }
-
-    // Popup থাকুক বা না থাকুক → play
-    playVideo();
-
-    if (popupShown) {
-      window.open("https://t.me/CriccSojeeb", "_blank");
-    }
-  }, 800);
-});
-</script>
-  
 </body>
 </html>
+
 
 
 
