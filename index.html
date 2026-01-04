@@ -23,7 +23,16 @@ body{
   font-size:22px;
   font-weight:bold;
 }
+.sub{font-size:13px;opacity:.8}
 .player-box{margin:10px}
+.info{
+  margin:10px;
+  background:#0a1f44;
+  padding:10px;
+  border-radius:10px;
+  font-size:14px;
+}
+.counter{color:#00ffcc;font-weight:bold}
 .tg-box{
   margin:15px;
   padding:15px;
@@ -46,10 +55,17 @@ body{
 
 <body oncontextmenu="return false">
 
-<div class="header">CriccVerse ✘ Sojeeb</div>
+<div class="header">
+  CriccVerse X Sojeeb 
+</div>
+
+<div class="info">
+ 🔴 LIVE NOW <br>
+ 👁️ Watching: <span class="counter" id="users">0</span>
+</div>
 
 <div class="player-box">
-  <video id="player" playsinline muted controls preload="auto"></video>
+  <video id="player" controls playsinline></video>
 </div>
 
 <div class="tg-box">
@@ -59,90 +75,105 @@ body{
 </div>
 
 <script>
-// 🔐 Inspect protection
-document.onkeydown = e=>{
+// 🔐 Basic Inspect Protection
+document.onkeydown = function(e){
   if(e.keyCode==123) return false;
   if(e.ctrlKey && e.shiftKey && e.keyCode==73) return false;
 };
 
-// 🔔 Telegram popup (1 hour)
-(function(){
-  const KEY="tg_popup_time";
-  const HOUR=60*60*1000;
-  const last=localStorage.getItem(KEY);
-  const now=Date.now();
-  if(!last || now-last>HOUR){
-    setTimeout(()=>{
-      localStorage.setItem(KEY,now);
-      if(confirm("Join @CriccSojeeb for more live matches?")){
-        location.href="https://t.me/CriccSojeeb";
-      }
-    },1500);
-  }
-})();
+// 🔔 Telegram Join Popup (Join / Skip)
+if(!localStorage.getItem("tg_skip")){
+  setTimeout(()=>{
+    if(confirm("Join CriccSojeeb Telegram Channel for live links?")){
+      window.location.href="https://t.me/CriccSojeeb";
+    }else{
+      localStorage.setItem("tg_skip","yes");
+    }
+  },1500);
+}
 
-/* ========= CHANNEL LIST ========= */
+/* ========== ADMIN PANEL (CHANNEL LIST) ========== */
 const CHANNELS = {
-  criclife:{name:"CricLife",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=303627"},
-  cricbuzz:{name:"Cricbuzz",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=303629"},
-  willow:{name:"Willow",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=13141"},
-  fancode:{name:"Fancode",url:"https://bd-mc-fdlive.fancode.com/mumbai/138656_english_hls_ce83ff130b39556_1ta-di_h264/index.m3u8"},
-  willow2:{name:"Willow 2",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=282231"},
-  sky:{name:"Sky Sports",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=10527"},
-  tnt:{name:"TNT Sports",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=77413"},
-  fox:{name:"Fox Sports",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=197185"},
-  star:{name:"Star Sports",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276736"},
-  star2:{name:"Star Sports 2",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276732"},
-  sony:{name:"Sony Sports",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276737"},
-  zee:{name:"Zee Cinema",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276907"},
-  geo:{name:"Geo Super",url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=49242"},
-  fancodebd:{
-    name:"Fancode BD",
-    url:"https://bd-mc-fdlive.fancode.com/mumbai/138656_english_hls_ce83ff130b39556_1ta-di_h264/index.m3u8"
+  criclife: {
+    name:"CricLife",
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=303627"
+  },
+  cricbuzz: {
+    name:"Cricbuzz",
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=303629"
+  },
+  willow: {
+    name:"Willow",
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=13141"
+  },
+  willow2: {
+    name:"Willow 2",
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=282231"
+  },
+  sky: {
+    name:"Sky Sports",
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=10527"
+  },
+  tnt: {
+    name:"TNT Sports",
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=77413"
+  },
+  fox: {
+    name:"Fox Sports",
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=197185"
+  },
+  star: {
+    name:"Star Sports",
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276736"
+  },
+  sony: {
+    name:"Sony Sports",
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276737"
+  },
+  zee: {
+    name:"Zee Cinema",
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276907"
+  },
+  geo: {
+    name:"Geo Super",
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=49242"
+  },
+  fancode: {
+    name:"FanCode",
+    url:"https://bd-mc-fdlive.fancode.com/mumbai/138739_english_hls_3e7a73d0358892_1ta-di_h264/index.m3u8"
   }
 };
 
-/* ========= STREAM LOAD ========= */
-const params=new URLSearchParams(location.search);
-const ch=params.get("ch");
+/* ========== STREAM SELECTOR ========== */
+const params = new URLSearchParams(window.location.search);
+const ch = params.get("ch");
+
 if(!ch || !CHANNELS[ch]){
-  alert("❌ Invalid / Private Stream");
-  throw "";
+  alert("❌ Invalid or Private Stream Link");
+  throw new Error("No stream selected");
 }
 
-const video=document.getElementById("player");
-const src=CHANNELS[ch].url;
+const source = CHANNELS[ch].url;
+const video = document.getElementById("player");
 
+// ▶️ HLS Player
 if(Hls.isSupported()){
-  const hls=new Hls({
-    lowLatencyMode:true,
-    maxBufferLength:20
-  });
-  hls.loadSource(src);
+  const hls = new Hls({autoStartLoad:true});
+  hls.loadSource(source);
   hls.attachMedia(video);
-
-  hls.on(Hls.Events.MANIFEST_PARSED,()=>{
-    const qualities=hls.levels.map(l=>l.height).filter(Boolean);
-    new Plyr(video,{
-      autoplay:true,
-      muted:true,
-      quality:{
-        default:qualities[0],
-        options:qualities,
-        forced:true,
-        onChange:q=>{
-          hls.levels.forEach((l,i)=>{
-            if(l.height===q) hls.currentLevel=i;
-          });
-        }
-      }
-    });
-    video.play().catch(()=>{});
-  });
 }else{
-  video.src=src;
-  new Plyr(video);
+  video.src = source;
 }
+
+// 🎛 Plyr UI
+new Plyr(video,{
+  quality:{
+    default:'auto',
+    options:['auto',1080,720,480,360],
+    forced:true
+  }
+});
+
 </script>
 
 </body>
