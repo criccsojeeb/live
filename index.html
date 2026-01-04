@@ -76,16 +76,25 @@ document.onkeydown = function(e){
   if(e.ctrlKey && e.shiftKey && e.keyCode==73) return false;
 };
 
-// 🔔 Telegram Join Popup (Join / Skip)
-if(!localStorage.getItem("tg_skip")){
-  setTimeout(()=>{
-    if(confirm("Join CriccSojeeb Telegram Channel for live links?")){
-      window.location.href="https://t.me/CriccSojeeb";
-    }else{
-      localStorage.setItem("tg_skip","yes");
-    }
-  },1500);
-}
+// 🔔 Telegram Popup – 1 hour cooldown
+(function () {
+  const TG_KEY = "tg_popup_time";
+  const ONE_HOUR = 60 * 60 * 1000;
+
+  const lastShown = localStorage.getItem(TG_KEY);
+  const now = Date.now();
+
+  if (!lastShown || now - lastShown > ONE_HOUR) {
+    setTimeout(() => {
+      const join = confirm("Join @CriccSojeeb for more live matches?");
+      localStorage.setItem(TG_KEY, now);
+
+      if (join) {
+        window.location.href = "https://t.me/CriccSojeeb";
+      }
+    }, 1500);
+  }
+})();
 
 /* ========== ADMIN PANEL (CHANNEL LIST) ========== */
 const CHANNELS = {
@@ -210,6 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
 </body>
 </html>
+
 
 
 
