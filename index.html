@@ -60,7 +60,14 @@ body{
 </div>
 
 <div class="player-box">
-  <video id="player" controls playsinline></video>
+  <video
+  id="player"
+  playsinline
+  muted
+  autoplay
+  controls
+  preload="auto"
+></video>
 </div>
 
 <div class="tg-box">
@@ -151,28 +158,62 @@ if(!ch || !CHANNELS[ch]){
 const source = CHANNELS[ch].url;
 const video = document.getElementById("player");
 
-// ▶️ HLS Player
-if(Hls.isSupported()){
-  const hls = new Hls({autoStartLoad:true});
+if (Hls.isSupported()) {
+  const hls = new Hls({
+    autoStartLoad: true,
+    startLevel: -1,          // auto → lowest quality first
+    maxBufferLength: 10,
+    maxMaxBufferLength: 20,
+    backBufferLength: 5,
+    liveSyncDuration: 6,
+    liveMaxLatencyDuration: 15,
+    lowLatencyMode: true,
+    enableWorker: true
+  });
+
   hls.loadSource(source);
   hls.attachMedia(video);
-}else{
+
+  hls.on(Hls.Events.MANIFEST_PARSED, function () {
+    video.muted = true;
+    video.play().catch(()=>{});
+
+    const qualities = hls.levels
+      .map(l => l.height)
+      .filter(Boolean)
+      .sort((a,b)=>a-b);
+
+    new Plyr(video,{
+      autoplay:true,
+      muted:true,
+      controls:[
+        'play-large','play','mute','volume',
+        'settings','fullscreen'
+      ],
+      quality:{
+        default: qualities[0], // lowest first
+        options: qualities,
+        forced:true,
+        onChange:q=>{
+          hls.levels.forEach((l,i)=>{
+            if(l.height===q) hls.currentLevel=i;
+          });
+        }
+      }
+    });
+  });
+
+} else {
   video.src = source;
+  video.muted = true;
+  video.play().catch(()=>{});
+  new Plyr(video);
 }
-
-// 🎛 Plyr UI
-new Plyr(video,{
-  quality:{
-    default:'auto',
-    options:['auto',1080,720,480,360],
-    forced:true
-  }
-});
-
 </script>
 
 </body>
 </html>
+
 
 
 
