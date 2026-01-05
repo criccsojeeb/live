@@ -60,14 +60,7 @@ body{
 </div>
 
 <div class="player-box">
-  <video
-  id="player"
-  playsinline
-  muted
-  autoplay
-  controls
-  preload="auto"
-></video>
+  <video id="player" controls playsinline></video>
 </div>
 
 <div class="tg-box">
@@ -126,7 +119,7 @@ const CHANNELS = {
   },
   star: {
     name:"Star Sports",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276732"
+    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276736"
   },
   sony: {
     name:"Sony Sports",
@@ -158,77 +151,28 @@ if(!ch || !CHANNELS[ch]){
 const source = CHANNELS[ch].url;
 const video = document.getElementById("player");
 
-if (Hls.isSupported()) {
-  const hls = new Hls({
-    autoStartLoad: true,
-    startLevel: -1,          // auto → lowest quality first
-    maxBufferLength: 10,
-    maxMaxBufferLength: 20,
-    backBufferLength: 5,
-    liveSyncDuration: 6,
-    liveMaxLatencyDuration: 15,
-    lowLatencyMode: true,
-    enableWorker: true
-  });
-
+// ▶️ HLS Player
+if(Hls.isSupported()){
+  const hls = new Hls({autoStartLoad:true});
   hls.loadSource(source);
   hls.attachMedia(video);
-
-  hls.on(Hls.Events.MANIFEST_PARSED, function () {
-    video.muted = true;
-    video.play().catch(()=>{});
-
-    const qualities = hls.levels
-      .map(l => l.height)
-      .filter(Boolean)
-      .sort((a,b)=>a-b);
-
-    new Plyr(video,{
-      autoplay:true,
-      muted:true,
-      controls:[
-        'play-large','play','mute','volume',
-        'settings','fullscreen'
-      ],
-      quality:{
-        default: qualities[0], // lowest first
-        options: qualities,
-        forced:true,
-        onChange:q=>{
-          hls.levels.forEach((l,i)=>{
-            if(l.height===q) hls.currentLevel=i;
-          });
-        }
-      }
-    });
-  });
-
-} else {
+}else{
   video.src = source;
-  video.muted = true;
-  video.play().catch(()=>{});
-  new Plyr(video);
 }
+
+// 🎛 Plyr UI
+new Plyr(video,{
+  quality:{
+    default:'auto',
+    options:['auto',1080,720,480,360],
+    forced:true
+  }
+});
+
 </script>
-<style>
-.player-box{
-  width:100%;
-  aspect-ratio:16/9;
-  background:#000;
-  border-radius:12px;
-  overflow:hidden;
-}
-.player-box video{
-  width:100%;
-  height:100%;
-}
-</style>
+
 </body>
 </html>
-
-
-
-
 
 
 
