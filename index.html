@@ -60,7 +60,14 @@ body{
 </div>
 
 <div class="player-box">
-  <video id="player" controls playsinline></video>
+  <video 
+  id="player"
+  playsinline
+  muted
+  autoplay
+  controls
+  preload="auto">
+  </video>
 </div>
 
 <div class="tg-box">
@@ -160,19 +167,37 @@ if(Hls.isSupported()){
   video.src = source;
 }
 
-// 🎛 Plyr UI
-new Plyr(video,{
-  quality:{
-    default:'auto',
-    options:['auto',1080,720,480,360],
-    forced:true
+const player = new Plyr(video, {
+  autoplay: true,
+  muted: true,
+  settings: ['quality', 'speed'],
+  speed: { selected: 1, options: [0.75, 1, 1.25] },
+  quality: {
+    default: 'auto',
+    options: ['auto', 1080, 720, 480, 360],
+    forced: true
   }
+});
+  }
+  const hls = new Hls({
+  lowLatencyMode: true,        // fast live
+  backBufferLength: 10,        // old buffer কম
+  maxBufferLength: 20,         // buffer limit
+  maxMaxBufferLength: 30,
+  startLevel: -1,              // auto lowest quality first
+  enableWorker: true,
+  liveSyncDuration: 3,
+  liveMaxLatencyDuration: 5
+});
+  hls.on(Hls.Events.MANIFEST_PARSED, () => {
+  video.play().catch(()=>{});
 });
 
 </script>
 
 </body>
 </html>
+
 
 
 
