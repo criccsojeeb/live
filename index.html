@@ -144,7 +144,30 @@ const CHANNELS = {
     name:"FanCode",
     url:"https://bd-mc-fdlive.fancode.com/mumbai/138941_english_hls_48ed6eee9983049_1ta-di_h264/index.m3u8"
   },
-  };
+
+  /* ====== CUSTOM CHANNELS (EDIT LATER) ====== */
+  ptv: {
+    name: "PTV Sports",
+    url: "https://allinonereborn.xyz/mix.m3u8/live4.php?id=49241"
+  },
+  live2: {
+    name: "Live 2",
+    url: "https://example.com/live2.m3u8"
+  },
+  live3: {
+    name: "Live 3",
+    url: "https://example.com/live3.m3u8"
+  },
+  live4: {
+    name: "Live 4",
+    url: "https://example.com/live4.m3u8"
+  },
+  live5: {
+    name: "Live 5",
+    url: "https://example.com/live5.m3u8"
+  }
+};
+
 
 /* ========== STREAM SELECTOR ========== */
 const params = new URLSearchParams(window.location.search);
@@ -180,6 +203,7 @@ new Plyr(video,{
 
 </body>
 </html>
+
 
 
 
