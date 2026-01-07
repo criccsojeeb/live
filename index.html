@@ -94,78 +94,88 @@ if(!localStorage.getItem("tg_skip")){
   },1500);
 }
 
-/* ========== ADMIN PANEL (CHANNEL LIST) ========== */
 const CHANNELS = {
-  criclife: {
-    name:"CricLife",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=303627"
-  },
-  cricbuzz: {
-    name:"Cricbuzz",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=303629"
-  },
-  willow: {
-    name:"Willow",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=13141"
-  },
-  willow2: {
-    name:"Willow 2",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=282231"
-  },
-  sky: {
-    name:"Sky Sports",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=10527"
-  },
-  tnt: {
-    name:"TNT Sports",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=77413"
-  },
-  fox: {
-    name:"Fox Sports",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=197185"
-  },
-  star: {
-    name:"Star Sports",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276736"
-  },
-  sony: {
-    name:"Sony Sports",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276737"
-  },
-  zee: {
-    name:"Zee Cinema",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276907"
-  },
-  geo: {
-    name:"Geo Super",
-    url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=49242"
-  },
-  fancode: {
-    name:"FanCode",
-    url:"https://bd-mc-fdlive.fancode.com/mumbai/138941_english_hls_48ed6eee9983049_1ta-di_h264/index.m3u8"
-  },
 
-  /* ====== CUSTOM CHANNELS (EDIT LATER) ====== */
-  ptv: {
-    name: "PTV Sports",
-    url: "https://allinonereborn.xyz/mix.m3u8/live4.php?id=49241"
-  },
-  live2: {
-    name: "Live 2",
-    url: "https://sonypartnersdaimenew.akamaized.net/hls/live/2018457/DAI35ME-PAKvsSL/master.m3u8?hdnea=exp=1767835286~acl=/*~id=24083722361771934502237631970999~hmac=be3a612bd54de0735cb9e3400c68a6a1e9851b3cff03b6e49fc8fb3ee9432a78"
-  },
-  live3: {
-    name: "Live 3",
-    url: "https://example.com/live3.m3u8"
-  },
-  live4: {
-    name: "Live 4",
-    url: "https://example.com/live4.m3u8"
-  },
-  live5: {
-    name: "Live 5",
-    url: "https://example.com/live5.m3u8"
-  }
+  /* ===== BASIC ===== */
+  criclife: { name:"CricLife", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=303627" },
+  cricbuzz:{ name:"Cricbuzz", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=303629" },
+
+  /* ===== WILLOW ===== */
+  willow:{ name:"Willow", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=13141" },
+  willow720:{ name:"Willow 720p", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276740" },
+  willow2:{ name:"Willow 2", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=282231" },
+
+  /* ===== SKY SPORTS ===== */
+  skyhd:{ name:"Sky Sports UK HD", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=10527" },
+  skysd:{ name:"Sky Sports UK SD", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=10526" },
+  skyhd2:{ name:"Sky Sports UK HD 2", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=303266" },
+  skyhd3:{ name:"Sky Sports UK HD 3", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=50274" },
+  skymain:{ name:"Sky Sports Main Event", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=10514" },
+  skymix:{ name:"Sky Sports MIX", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=303262" },
+
+  /* ===== TNT SPORTS ===== */
+  tnt1:{ name:"TNT Sports 1", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=77413" },
+  tnt1b:{ name:"TNT Sports 1 Alt", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=968928" },
+  tnt2:{ name:"TNT Sports 2", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=77414" },
+  tnt3:{ name:"TNT Sports 3", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=77415" },
+  tnt4:{ name:"TNT Sports 4", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=10510" },
+
+  /* ===== FOX SPORTS ===== */
+  fox501:{ name:"Fox Sports 501", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=197185" },
+  fox502:{ name:"Fox Sports 502", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=197186" },
+  fox503:{ name:"Fox Sports 503", url:"https://example.com/fox503.m3u8" },
+  fox504:{ name:"Fox Sports 504", url:"https://example.com/fox504.m3u8" },
+  fox505:{ name:"Fox Sports 505", url:"https://example.com/fox505.m3u8" },
+  fox506:{ name:"Fox Sports 506", url:"https://example.com/fox506.m3u8" },
+  fox507:{ name:"Fox Sports 507", url:"https://example.com/fox507.m3u8" },
+
+  /* ===== STAR SPORTS ===== */
+  star1:{ name:"Star Sports 1", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276730" },
+  star1h:{ name:"Star Sports 1 Hindi", url:"https://example.com/star1h.m3u8" },
+  star2:{ name:"Star Sports 2", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276732" },
+  star2h:{ name:"Star Sports 2 Hindi", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=1090572" },
+  star3:{ name:"Star Sports 3", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276733" },
+
+  /* ===== STAR SELECT ===== */
+  starselect1:{ name:"Star Sports Select 1", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276734" },
+  starselect2:{ name:"Star Sports Select 2", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276735" },
+
+  /* ===== SONY SPORTS ===== */
+  sony1:{ name:"Sony Sports 1", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276737" },
+  sony2:{ name:"Sony Sports 2", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276738" },
+  sony3:{ name:"Sony Sports 3", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276739" },
+  sony4:{ name:"Sony Sports 4", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=1080194" },
+  sony5:{ name:"Sony Sports 5", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276728" },
+
+  /* ===== OTHERS ===== */
+  zeecinema:{ name:"Zee Cinema", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276907" },
+  dsports:{ name:"D Sports", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=276727" },
+  geosuper:{ name:"Geo Super", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=49242" },
+  ptv:{ name:"PTV Sports", url:"https://allinonereborn.xyz/mix.m3u8/live4.php?id=49241" },
+
+  /* ===== FANCODE ===== */
+  fancode1:{ name:"FanCode 1", url:"https://example.com/fancode1.m3u8" },
+  fancode2:{ name:"FanCode 2", url:"https://example.com/fancode2.m3u8" },
+  fancode3:{ name:"FanCode 3", url:"https://example.com/fancode3.m3u8" },
+
+  /* ===== EXTRA ===== */
+  sonyliv1:{ name:"Sony LIV 1", url:"https://example.com/sonyliv1.m3u8" },
+  sonyliv2:{ name:"Sony LIV 2", url:"https://example.com/sonyliv2.m3u8" },
+  tsports:{ name:"T Sports", url:"https://example.com/tsports.m3u8" },
+  astro:{ name:"Astro Cricket", url:"https://example.com/astro.m3u8" },
+  ten:{ name:"Ten Cricket", url:"https://example.com/ten.m3u8" },
+
+  /* ===== LIVE EXAMPLE ===== */
+  live1:{ name:"Live 1", url:"https://example.com/live1.m3u8" },
+  live2:{ name:"Live 2", url:"https://example.com/live2.m3u8" },
+  live3:{ name:"Live 3", url:"https://example.com/live3.m3u8" },
+  live4:{ name:"Live 4", url:"https://example.com/live4.m3u8" },
+  live5:{ name:"Live 5", url:"https://example.com/live5.m3u8" },
+  live6:{ name:"Live 6", url:"https://example.com/live6.m3u8" },
+  live7:{ name:"Live 7", url:"https://example.com/live7.m3u8" },
+  live8:{ name:"Live 8", url:"https://example.com/live8.m3u8" },
+  live9:{ name:"Live 9", url:"https://example.com/live9.m3u8" }
+
 };
 
 
@@ -203,6 +213,7 @@ new Plyr(video,{
 
 </body>
 </html>
+
 
 
 
