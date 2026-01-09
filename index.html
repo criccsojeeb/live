@@ -51,6 +51,53 @@ body{
   text-decoration:none;
 }
 </style>
+  <style>
+/* Telegram Join Popup */
+.tg-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+}
+.tg-box{
+  width:90%;
+  max-width:360px;
+  background:linear-gradient(135deg,#1da1f2,#0d6efd);
+  padding:25px;
+  border-radius:16px;
+  text-align:center;
+  color:#fff;
+  box-shadow:0 0 40px rgba(29,161,242,.6);
+}
+.tg-box h2{
+  margin:10px 0;
+}
+.tg-box p{
+  font-size:14px;
+  opacity:.9;
+}
+.tg-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:12px;
+}
+.tg-join{
+  background:#fff;
+  color:#0d6efd;
+  font-weight:bold;
+}
+.tg-later{
+  background:rgba(255,255,255,.25);
+  color:#fff;
+}
+  </style>
 </head>
 
 <body oncontextmenu="return false">
@@ -210,9 +257,34 @@ new Plyr(video,{
 });
 
 </script>
+  <!-- Telegram Join Popup -->
+<div class="tg-overlay" id="tgPopup">
+  <div class="tg-box">
+    <h2>Join our Telegram</h2>
+    <p>Get instant updates on all live streams</p>
+
+    <button class="tg-btn tg-join" onclick="joinTG()">Join Now</button>
+    <button class="tg-btn tg-later" onclick="closeTG()">Maybe Later</button>
+  </div>
+</div>
+  <script>
+function joinTG(){
+  window.open("https://t.me/CriccSojeeb","_blank");
+}
+
+function closeTG(){
+  document.getElementById("tgPopup").style.display="none";
+}
+
+// Reload হলেই popup দেখাবে
+window.onload = function(){
+  document.getElementById("tgPopup").style.display="flex";
+};
+  </script>
 
 </body>
 </html>
+
 
 
 
